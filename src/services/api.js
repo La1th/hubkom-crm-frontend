@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an axios instance with default config
 const api = axios.create({
-  baseURL: 'https://hubkom-crm-backend.onrender.com/',
+  baseURL: 'https://hubkom-crm-backend.onrender.com', // Replace with your ACTUAL Render URL
   headers: {
     'Content-Type': 'application/json'
   }
