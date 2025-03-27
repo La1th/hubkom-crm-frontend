@@ -7,6 +7,27 @@ import '../styles/Navigation.css';
 const Navigation = () => {
   const { logout, user } = useAuth0();
 
+  // Function to extract first name from user object
+  const getFirstName = () => {
+    if (!user) return '';
+    
+    // If Auth0 provides a name, extract the first name
+    if (user.name) {
+      return user.name.split(' ')[0];
+    }
+    
+    // If only email is available, extract name part before @
+    if (user.email) {
+      const emailName = user.email.split('@')[0];
+      // Handle case where email might be john.doe@example.com
+      const nameParts = emailName.split('.');
+      // Capitalize first letter
+      return nameParts[0].charAt(0).toUpperCase() + nameParts[0].slice(1);
+    }
+    
+    return 'User';
+  };
+
   const handleLogout = () => {
     logout({ 
       logoutParams: {
@@ -37,7 +58,7 @@ const Navigation = () => {
         </button>
         {user && (
           <div className="user-menu">
-            <span className="user-name">{user.name || user.email}</span>
+            <span className="user-name">Hi, {getFirstName()}</span>
             <button onClick={handleLogout} className="btn btn-logout">
               Logout
             </button>
