@@ -27,6 +27,8 @@ export const ApiProvider = ({ children }) => {
           config.headers.Authorization = `Bearer ${token}`;
         } catch (error) {
           console.error('Error getting token', error);
+          // Continue with the request without the token
+          console.warn('Proceeding without authentication token');
         }
       }
       return config;
