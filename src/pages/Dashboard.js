@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { prospectService } from '../services/api';
+import { useApi } from '../services/api';
 import '../styles/Dashboard.css';
 
 const Dashboard = () => {
+  const { prospectService } = useApi();
   const [stats, setStats] = useState({
     totalProspects: 0,
     newLeads: 0,

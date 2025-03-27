@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Link } from 'react-router-dom';
-import { prospectService } from '../services/api';
+import { useApi } from '../services/api';
 import '../styles/KanbanBoard.css';
 
 const KanbanBoard = () => {
+  const { prospectService } = useApi();
   const [columns, setColumns] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { prospectService } from '../services/api';
+import { useApi } from '../services/api';
 import '../styles/ProspectDetail.css';
 
 const ProspectDetail = () => {
+  const { prospectService } = useApi();
   const { id } = useParams();
   const navigate = useNavigate();
   

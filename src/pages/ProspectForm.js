@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { prospectService } from '../services/api';
+import { useApi } from '../services/api';
 import '../styles/ProspectForm.css';
 
 const ProspectForm = () => {
+  const { prospectService } = useApi();
   const navigate = useNavigate();
   const { id } = useParams();
   const isEditing = !!id;

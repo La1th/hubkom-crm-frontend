@@ -21,8 +21,19 @@ export const ApiProvider = ({ children }) => {
 
     // Add request interceptor to include auth token
     api.interceptors.request.use(async (config) => {
-      // For now, we'll skip authentication to get the app working
-      console.log('Making API request without authentication');
+      if (isAuthenticated) {
+        try {
+          const token = await getAccessTokenSilently();
+          config.headers.Authorization = `Bearer ${token}`;
+          console.log('Added authentication token to request');
+        } catch (error) {
+          console.error('Error getting token', error);
+          // Continue with the request without the token
+          console.warn('Proceeding without authentication token');
+        }
+      } else {
+        console.warn('User not authenticated, proceeding without token');
+      }
       return config;
     });
 
