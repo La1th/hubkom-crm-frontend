@@ -42,9 +42,6 @@ const Navigation = () => {
         </li>
       </ul>
       <div className="nav-actions">
-        <button className="btn btn-primary">
-          <NavLink to="/prospects/new">+ New Prospect</NavLink>
-        </button>
         {user && (
           <div className="user-menu">
             <span className="user-name">Hi, {getFirstName()}</span>

@@ -110,7 +110,10 @@ const Dashboard = () => {
           <div className="dashboard-section">
             <div className="section-header">
               <h2>Recent Prospects</h2>
-              <Link to="/prospects" className="view-all">View All</Link>
+              <div className="section-actions">
+                <Link to="/prospects/new" className="btn btn-primary">+ New Prospect</Link>
+                <Link to="/prospects" className="view-all">View All</Link>
+              </div>
             </div>
             <div className="card">
               {recentProspects.length > 0 ? (
