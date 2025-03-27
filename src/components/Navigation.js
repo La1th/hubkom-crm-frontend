@@ -1,8 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 import '../styles/Navigation.css';
 
 const Navigation = () => {
+  const { logout, user } = useAuth0();
+
+  const handleLogout = () => {
+    logout({ returnTo: window.location.origin });
+  };
+
   return (
     <nav className="navigation">
       <div className="nav-brand">
@@ -23,6 +30,14 @@ const Navigation = () => {
         <button className="btn btn-primary">
           <NavLink to="/prospects/new">+ New Prospect</NavLink>
         </button>
+        {user && (
+          <div className="user-menu">
+            <span className="user-name">{user.name || user.email}</span>
+            <button onClick={handleLogout} className="btn btn-logout">
+              Logout
+            </button>
+          </div>
+        )}
       </div>
     </nav>
   );
