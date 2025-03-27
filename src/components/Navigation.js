@@ -1,13 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import { auth0Config } from '../auth/auth0-config';
 import '../styles/Navigation.css';
 
 const Navigation = () => {
   const { logout, user } = useAuth0();
 
   const handleLogout = () => {
-    logout({ returnTo: window.location.origin });
+    logout({ 
+      logoutParams: {
+        returnTo: auth0Config.redirectUri 
+      }
+    });
   };
 
   return (
