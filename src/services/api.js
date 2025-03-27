@@ -155,12 +155,12 @@ export const useApi = () => {
 };
 
 // Export the prospectService directly for backward compatibility
+// This is a simplified version that doesn't use Auth0 hooks directly
 export const prospectService = {
-  getProspects: async (...args) => {
+  getProspects: async (filters = {}) => {
     console.warn('Direct use of prospectService is deprecated. Please use the useApi hook instead.');
-    const { getAccessTokenSilently, isAuthenticated } = useAuth0();
     
-    // Create temporary api instance
+    // Create a basic API instance without authentication
     const api = axios.create({
       baseURL: 'https://hubkom-crm-backend.onrender.com/api',
       headers: {
@@ -168,19 +168,7 @@ export const prospectService = {
       }
     });
     
-    // Add auth token if authenticated
-    if (isAuthenticated) {
-      try {
-        const token = await getAccessTokenSilently();
-        api.defaults.headers.common.Authorization = `Bearer ${token}`;
-      } catch (error) {
-        console.error('Error getting token', error);
-      }
-    }
-    
-    // Delegate to original implementation
     try {
-      const [filters = {}] = args;
       const { status, search } = filters;
       let url = '/prospects';
       
@@ -200,6 +188,21 @@ export const prospectService = {
     }
   },
   
-  // Similarly implement other methods...
-  // For brevity, these are omitted but should be implemented similarly
+  // Add other methods as needed with the same pattern
+  getProspect: async (id) => {
+    console.warn('Direct use of prospectService is deprecated. Please use the useApi hook instead.');
+    const api = axios.create({
+      baseURL: 'https://hubkom-crm-backend.onrender.com/api'
+    });
+    
+    try {
+      const response = await api.get(`/prospects/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching prospect:', error);
+      throw error;
+    }
+  },
+  
+  // Add other methods as needed
 }; 
